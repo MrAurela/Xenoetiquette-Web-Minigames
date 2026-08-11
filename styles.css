@@ -478,6 +478,69 @@ select {
   min-width: 16rem;
 }
 
+.manual-qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(2, 6, 23, .78);
+}
+
+.manual-qr-modal__content {
+  position: relative;
+  width: min(24rem, 100%);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 200, 220, .25);
+  background: rgba(2, 6, 23, .96);
+  box-shadow: 0 0 40px rgba(0, 180, 220, .12);
+  text-align: center;
+}
+
+.manual-qr-modal__title {
+  margin: 0 0 .5rem;
+  color: #c9eef3;
+  font-size: 1.1rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.manual-qr-modal__text {
+  margin: 0 0 1rem;
+  color: rgba(226, 232, 240, .75);
+  font-size: .95rem;
+}
+
+.manual-qr-modal__code {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.manual-qr-modal__copy {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid rgba(0, 200, 220, .2);
+  border-radius: .75rem;
+  background: #0f172a;
+  color: #c9eef3;
+  cursor: pointer;
+}
+
+.manual-qr-modal__close {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  border: none;
+  background: transparent;
+  color: #c9eef3;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
 .space-y-2> :not([hidden])~ :not([hidden]) {
   margin-top: .5rem;
 }

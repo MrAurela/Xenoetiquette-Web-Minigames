@@ -44,60 +44,61 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const submit = document.getElementById('exam-submit');
     const banner = document.getElementById('exam-banner');
-    const manualToggle = document.getElementById('manual-share-toggle');
-    const manualPanel = document.getElementById('manual-share-panel');
-    const telegramBtn = document.getElementById('share-telegram');
-    const smsBtn = document.getElementById('share-sms');
-    const copyBtn = document.getElementById('copy-manual-link');
-    const openBtn = document.getElementById('manual-open-now');
+    const shareButton = document.getElementById('manual-share-toggle');
+    const qrModal = document.getElementById('manual-qr-modal');
+    const qrCloseBtn = document.getElementById('manual-qr-close');
+    const qrContainer = document.getElementById('manual-qr-code');
+    const copyButton = document.getElementById('copy-manual-link');
     const manualUrl = new URL('./manual.html', window.location.href).href;
-    const manualShareText = 'Check out the Xenoetiquette field manual:';
+    const manualUrlShare = 'https://mraurela.github.io/Xenoetiquette-Web-Minigames/manual.html';
 
-    if (manualToggle && manualPanel) {
-        manualToggle.addEventListener('click', function (ev) {
-            ev.stopPropagation();
-            manualPanel.classList.toggle('hidden');
+    function openQrModal() {
+        if (qrModal) {
+            qrModal.classList.remove('hidden');
+        }
+        if (qrContainer) {
+            qrContainer.innerHTML = '';
+        }
+        generateQR(manualUrlShare);
+    }
+
+    if (qrCloseBtn && qrModal) {
+        qrCloseBtn.addEventListener('click', function () {
+            qrModal.classList.add('hidden');
         });
+    }
 
-        document.addEventListener('click', function (ev) {
-            if (!manualPanel.contains(ev.target) && ev.target !== manualToggle) {
-                manualPanel.classList.add('hidden');
+    if (qrModal) {
+        qrModal.addEventListener('click', function (event) {
+            if (event.target === qrModal) {
+                qrModal.classList.add('hidden');
             }
         });
     }
 
-    if (telegramBtn) {
-        telegramBtn.addEventListener('click', function () {
-            window.open('https://t.me/share/url?url=' + encodeURIComponent(manualUrl) + '&text=' + encodeURIComponent(manualShareText), '_blank');
+    if (shareButton) {
+        shareButton.addEventListener('click', async () => {
+            try {
+                await navigator.share(manualUrlShare);
+            } catch (err) {
+                openQrModal();
+            }
         });
     }
 
-    if (smsBtn) {
-        smsBtn.addEventListener('click', function () {
-            window.open('sms:?body=' + encodeURIComponent(manualShareText + ' ' + manualUrl), '_blank');
-        });
-    }
-
-    if (copyBtn) {
-        copyBtn.addEventListener('click', function () {
+    if (copyButton) {
+        copyButton.addEventListener('click', function () {
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(manualUrl).then(function () {
-                    const original = copyBtn.textContent;
-                    copyBtn.textContent = 'Copied!';
-                    setTimeout(function () { copyBtn.textContent = original; }, 1500);
+                navigator.clipboard.writeText(manualUrlShare).then(function () {
+                    const original = copyButton.textContent;
+                    copyButton.textContent = 'Copied!';
+                    setTimeout(function () { copyButton.textContent = original; }, 1500);
                 }).catch(function () {
                     window.alert('Unable to copy link.');
                 });
             } else {
                 window.prompt('Copy this manual link:', manualUrl);
             }
-        });
-    }
-
-    if (openBtn) {
-        openBtn.addEventListener('click', function () {
-            window.open('./manual.html', '_blank');
-            if (manualPanel) manualPanel.classList.add('hidden');
         });
     }
 
@@ -226,4 +227,27 @@ document.addEventListener('DOMContentLoaded', function () {
             if (ev.key === 'Enter') { ev.preventDefault(); checkAnswers(); }
         });
     });
+
+    function generateQR(text) {
+        const target = qrContainer || document.getElementById('qrcode');
+        if (!target) return;
+
+        const qrCode = new QRCodeStyling({
+            width: 200,
+            height: 200,
+            data: text,
+            dotsOptions: {
+                color: "#000000",
+                type: "square"
+            },
+            backgroundOptions: {
+                color: "#ffffff",
+            }
+        });
+
+        target.innerHTML = "";
+        qrCode.append(target);
+    }
 });
+
+

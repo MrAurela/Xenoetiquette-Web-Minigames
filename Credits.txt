@@ -1,0 +1,14 @@
+Miro Aurela
+
+Tools / Resources:
+ - Code
+   - Development
+      - First prototype: Base44 (https://app.base44.com/apps/6a39f2e4dec1f19740b768c8/)
+      - Development: VS Code with GitHub Copilot (e.g. GPT-5 mini)
+   - Information/Code sources
+     - Google AI Mode
+     - https://www.freecodecamp.org/news/how-to-build-a-qr-code-generator-using-javascript/
+     - https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API
+ - Art:
+   - Xenoetiquette original art from project's Google Drive
+   - Editing with Affinity Design
